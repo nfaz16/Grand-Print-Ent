@@ -34,13 +34,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $index = $_POST['edit_index'];
         if (isset($_SESSION['cart'][$index])) {
             $_SESSION['cart'][$index] = [
-                'product_id' => $_POST['product_id'] ?? '',
-                'name' => $_POST['product_name'] ?? '',
-                'qty' => $_POST['qty'] ?? 1,
-                'cloth' => $_POST['cloth'] ?? '', // Fixed: separate cloth field
-                'collar' => $_POST['collar'] ?? '', // Fixed: separate collar field
-                'size' => $_POST['size'] ?? '',
-                'image' => $_POST['product_image'] ?? ''
+                'product_id' => $_POST['product_id'],
+                'name' => $_POST['product_name'],
+                'qty' => $_POST['qty'],
+                'cloth' => $_POST['cloth'],
+                'collar' => $_POST['collar'],
+                'size' => $_POST['size'],
+                'image' => $_POST['product_image']
             ];
         }
         header("Location: addtocart.php");
@@ -49,13 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle adding new items
     else {
         $item = [
-           'product_id' => $_POST['product_id'] ?? 'custom001',
-            'name' => $_POST['product_name'] ?? '',
-            'qty' => $_POST['qty'] ?? 1,
-            'cloth' => $_POST['cloth'] ?? '', // Fixed: use cloth field
-            'collar' => $_POST['collar'] ?? '', // Fixed: use collar field
-            'size' => $_POST['size'] ?? '',
-            'image' => $_POST['product_image'] ?? ''
+            'product_id' => $_POST['product_id'],
+            'name' => $_POST['product_name'],
+            'qty' => $_POST['qty'],
+            'cloth' => $_POST['cloth'],
+            'collar' => $_POST['collar'],
+            'size' => $_POST['size'],
+            'image' => $_POST['product_image']
         ];
         $_SESSION['cart'][] = $item;
         header("Location: addtocart.php");
@@ -70,6 +70,8 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grand Print</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -121,23 +123,19 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 			display: flex;
 			align-items: center;
 			text-decoration: none;
-			font-weight: bold;
-			font-size: 1.7rem;
-			color: #333;
-			gap: 15px;
 		}
 
 		.logo-img {
 			height: 50px;
 			width: auto;
-            margin-right: 10px;
+			margin-right: 10px;
 		}
 
         .nav-menu {
             display: flex;
             list-style: none;
             gap: 4rem;
-            align-items: center;
+			align-items: center;
         }
 
         .nav-menu a {
@@ -165,7 +163,15 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             font-size: 0.9rem;
             color: #666;
         }
-
+		
+		.title{
+			font-size: 15px;
+			position: center;
+			display: flex;
+		    justify-content: center;
+		    margin-top: 30px;
+		}
+		
 		.grand-print {
             font-size: 1.5rem;
             font-weight: bold;
@@ -177,14 +183,6 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             margin: 0;
             padding: 0;
         }
-		
-		.title{
-			font-size: 15px;
-			position: center;
-			display: flex;
-			justify-content: center;
-			margin-top: 30px;
-		}
 			
 		.footer-c{
 			background-color: #000;
@@ -375,20 +373,12 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 		  text-align: center;
 		}
 
-		.footer-c {
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            margin-top: 50px;
-            width: 100%;
-            font-size: 1.1rem;
-        }
+		
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
+     <!-- Header -->
+     <header class="header">
         <nav class="nav-container">
             <a href="userhome.php" class="logo">
                 <img src="GPlogo.png" alt="Grand Print Logo" class="logo-img">
@@ -411,7 +401,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 	
 	<div class="main-content">
     <!-- Your cart display code -->
-    <div style="max-width: 900px; margin: 40px auto 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 30px;">
+    <div style="max-width: 1000px; margin: 0px auto 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 30px;">
         <h1 style="text-align:center; margin-bottom: 30px;">Your Cart</h1>
         
         <?php if (isset($error_message)): ?>
@@ -421,7 +411,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
         <?php if (!empty($_SESSION['cart'])): ?>
             <form method="POST" action="addtocart.php" id="cartForm">
                 
-                <table style="width:100%; border-collapse: collapse;">
+                <table style="width:900px; border-collapse: collapse;">
                     <tr style="background: #f5f5f5;">
                         <th style="padding: 10px; width: 50px;">Select</th>
                         <th style="padding: 10px;">Image</th>
@@ -437,14 +427,14 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                         <td class="checkbox-container">
                             <input type="checkbox" name="selected_items[]" value="<?php echo $idx; ?>" class="item-checkbox custom-checkbox">
                         </td>
-                        <td style="text-align:center;"><img src="<?php echo htmlspecialchars($item['image'] ?? ''); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" style="height:60px; width:auto; border-radius:8px; margin-top: 10px;"></td>
+                        <td style="text-align:center;"><img src="<?php echo htmlspecialchars($item['image'] ?? 'default.jpg'); ?>" alt="<?php echo htmlspecialchars($item['name'] ?? 'Product'); ?>" style="height:60px; width:auto; border-radius:8px; margin-top: 10px;"></td>
                         <td style="text-align:center; font-weight:600;"> <?php echo htmlspecialchars($item['name'] ?? 'N/A'); ?> </td>
-                        <td style="text-align:center;"> <?php echo htmlspecialchars($item['qty'] ?? '1'); ?> </td>
-                        <td style="text-align:center;"><?php echo htmlspecialchars($item['cloth'] ?? 'N/A'); ?></td>
-                        <td style="text-align:center;"><?php echo htmlspecialchars($item['collar'] ?? 'N/A'); ?></td>
+                        <td style="text-align:center;"><?php echo htmlspecialchars($item['qty'] ?? '1'); ?> </td>
+                        <td style="text-align:center;"><?php echo htmlspecialchars($item['cloth'] ?? 'Not specified'); ?></td>
+                        <td style="text-align:center;"><?php echo htmlspecialchars($item['collar'] ?? 'Not specified'); ?></td>
                         <td style="text-align:center;"><?php echo htmlspecialchars($item['size'] ?? 'N/A'); ?></td>
                         <td style="text-align:center;">
-                            <button type="button" onclick='openEditModal(<?php echo $idx; ?>, <?php echo htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8'); ?>)" class="btn btn-sm btn-primary" style="margin-right:10px; padding:10px 20px; background:#F5CF27; color:black; border:none; border-radius:5px; cursor:pointer;">Edit</button>
+                            <button type="button" onclick='openEditModal(<?php echo $idx; ?>, <?php echo htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8'); ?>)' class="btn btn-sm btn-primary" style="margin-right:10px; padding:10px 20px; background:#F5CF27; color:black; border:none; border-radius:5px; cursor:pointer;">Edit</button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -454,7 +444,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                     <div class="selected-count">
                         <span id="selectedCount">0</span> item(s) selected
                     </div>
-                    <button type="submit" name="checkout_selected" id="checkoutBtn" style="background: maroon; color: #fff; padding: 12px 30px; border-radius: 25px; border: none; font-weight: 600; font-size: 1rem; cursor: pointer;"disabled>Checkout</button>
+                    <button type="submit" name="checkout_selected" id="checkoutBtn" style="background: maroon; color: #fff; padding: 12px 30px; border-radius: 25px; border: none; font-weight: 600; font-size: 1rem; cursor: pointer;" disabled>Checkout</button>
                 </div>
             </form>
         <?php else: ?>
@@ -462,6 +452,11 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
         <?php endif; ?>
     </div>
 </div>
+
+	
+	<div class="footer-c">
+        <p>&copy; 2025 My Web Application</p>
+    </div>
 
     <script>
         function openModal(productName, productImage) {
@@ -482,9 +477,9 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
             document.getElementById('edit_product_name').value = product.name;
             document.getElementById('edit_product_image').value = product.image;
             document.getElementById('edit_qty').value = product.qty;
-            document.getElementById('edit_cloth').value = product.cloth;
-            document.getElementById('edit_collar').value = product.collar;
-            document.getElementById('edit_size').value = product.size;
+            document.getElementById('edit_cloth').value = product.cloth || '';
+            document.getElementById('edit_collar').value = product.collar || '';
+            document.getElementById('edit_size').value = product.size || '';
             document.getElementById('delete_index').value = index;
             document.getElementById('editModal').style.display = 'flex';
         }
@@ -574,21 +569,21 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 
             <label>Cloth:</label>
             <select name="cloth" required style="width:100%; padding:8px; margin-bottom:15px;">
-                <option value="">Select cloth</option>
-                <option value="Short">short sleeve</option>
-				<option value="Long">long sleeve</option>
-                <option value="Muslimah">Muslimah</option>
-			</select>
+                <option value="Select cloth">Select cloth</option>
+                <option value="Short sleeve">Short sleeve</option>
+				<option value="Long sleeve">Long sleeve</option>
+                <option value="Muslimah">Muslimah</option>	
+            </select>
 
             <label>Collar:</label>
             <select name="collar" required style="width:100%; padding:8px; margin-bottom:15px;">
                 <option value="">Select collar</option>
                 <option value="V-Neck">V-Neck</option>
-				<option value="Polo">Polo</option>
+                <option value="Polo">Polo</option>
                 <option value="Mandarin button">Mandarin Button</option>
-				<option value="Round Neck">Round Neck</option>
-				<option value="Retro insert">Retro insert</option>
-				<option value="Insert open">Insert open</option>
+                <option value="Round Neck">Round Neck</option>
+                <option value="Retro insert">Retro insert</option>
+                <option value="Insert open">Insert open</option>
             </select>
 
             <label>Size:</label>
@@ -631,17 +626,17 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 		  <label>Quantity:</label>
           <input type="number" class="form-control" name="qty" id="edit_qty" min="1" required>
 
-          <label>Cloth:</label>
-            <select name="cloth" required style="width:100%; padding:8px; margin-bottom:15px;">
+          <label>Cloth Type:</label>
+          <select name="cloth" id="edit_cloth" required style="width:100%; padding:10px 14px; border:1px solid #ddd; border-radius:8px; margin-bottom:15px;">
                 <option value="">Select cloth</option>
-                <option value="Short">short sleeve</option>
-				<option value="Long">long sleeve</option>
-                <option value="Muslimah">Muslimah</option>
-			</select>
+                <option value="Short sleeve">Short sleeve</option>
+				<option value="Long sleeve">Long sleeve</option>
+                <option value="Muslimah">Muslimah</option>	
+          </select>
 
-          <label>Collar:</label>
-          <select class="form-select" name="type" id="edit_type" required>
-            <option value="">Select type</option>
+          <label>Collar Type:</label>
+          <select class="form-select" name="collar" id="edit_collar" required>
+            <option value="">Select collar</option>
             <option value="V-Neck">V-Neck</option>
             <option value="Polo">Polo</option>
             <option value="Mandarin button">Mandarin Button</option>
@@ -668,8 +663,5 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
     </div>
   </div>
 </div>
-    <div class="footer-c">
-        <p>&copy; 2025 My Web Application</p>
-    </div>
 </body>
 </html>
