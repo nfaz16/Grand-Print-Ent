@@ -454,7 +454,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                     <div class="selected-count">
                         <span id="selectedCount">0</span> item(s) selected
                     </div>
-                    <button type="submit" name="checkout_selected" id="checkoutBtn" style="background: maroon; color: #fff; padding: 12px 30px; border-radius: 25px; border: none; font-weight: 600; font-size: 1rem; cursor: pointer;"disabled>Checkout</button>
+                    <button type="submit" name="checkout_selected" id="checkoutBtn" style="background: maroon; color: #fff; padding: 12px 30px; border-radius: 25px; border: none; font-weight: 600; font-size: 1rem; cursor: pointer;" disabled>Checkout</button>
                 </div>
             </form>
         <?php else: ?>
@@ -632,7 +632,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
           <input type="number" class="form-control" name="qty" id="edit_qty" min="1" required>
 
           <label>Cloth:</label>
-            <select name="cloth" required style="width:100%; padding:8px; margin-bottom:15px;">
+            <select name="cloth" id="edit_cloth" required style="width:100%; padding:8px; margin-bottom:15px;">
                 <option value="">Select cloth</option>
                 <option value="Short">short sleeve</option>
 				<option value="Long">long sleeve</option>
@@ -640,8 +640,8 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
 			</select>
 
           <label>Collar:</label>
-          <select class="form-select" name="type" id="edit_type" required>
-            <option value="">Select type</option>
+          <select class="form-select" name="collar" id="edit_collar" required>
+            <option value="">Select collar</option>
             <option value="V-Neck">V-Neck</option>
             <option value="Polo">Polo</option>
             <option value="Mandarin button">Mandarin Button</option>
