@@ -515,6 +515,7 @@ $cartCount = isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0;
                 <li><a href="productlogin.php">Products</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="contact.php">Contact</a></li>
+                <li><a href="order_history.php">Order History</a></li>
 				<li><a href="logout.php">Logout</a></li>
 				<a href="addtocart.php" class="cart-link" style="position:relative; margin-left: 18px;">
 				  <i class="fas fa-shopping-cart" style="font-size: 1.5rem;"></i>

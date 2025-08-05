@@ -531,6 +531,9 @@ $size_surcharges_result = $conn->query($size_surcharges_sql);
                                         <button class="btn-status" onclick="updateOrderStatus(<?php echo $row['id']; ?>, '<?php echo $row['customer_email']; ?>')">
                                             Update Status
                                         </button>
+                                        <a href="customer_orders.php?user_id=<?php echo $row['user_id']; ?>" class="btn-edit" style="text-decoration: none; color: #212529; padding: 0.25rem 0.5rem; border-radius: 3px; font-size: 0.8rem; margin: 0 0.1rem;">
+                                            View Customer Orders
+                                        </a>
                                     </td>
                                 </tr>
                             <?php 
@@ -606,6 +609,7 @@ $size_surcharges_result = $conn->query($size_surcharges_sql);
 			<th>Email</th>
                                 <th>Phone</th>
                                 <th>Registration Date</th>
+                                <th>Actions</th>
 			</tr>
 		</thead>
 		<tbody> 
@@ -619,6 +623,11 @@ $size_surcharges_result = $conn->query($size_surcharges_sql);
 						<td><?php echo $row['email']; ?></td>
 						<td><?php echo $row['no phone']; ?></td>
                                     <td><?php echo isset($row['created_at']) ? date('M d, Y', strtotime($row['created_at'])) : 'N/A'; ?></td>
+                                    <td>
+                                        <a href="customer_orders.php?user_id=<?php echo $row['id']; ?>" class="btn-edit" style="text-decoration: none; color: #212529; padding: 0.25rem 0.5rem; border-radius: 3px; font-size: 0.8rem;">
+                                            View Orders
+                                        </a>
+                                    </td>
 						</tr>                       
                             <?php 
                                 }
